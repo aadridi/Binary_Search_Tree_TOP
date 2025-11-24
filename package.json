@@ -1,0 +1,26 @@
+{
+	"name": "binary_search_tree_top",
+	"version": "1.0.0",
+	"description": "A repo regarding the BST project that consists in creating balanced BST in JS given an array.",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/aadridi/Binary_Search_Tree_TOP.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/aadridi/Binary_Search_Tree_TOP/issues"
+	},
+	"homepage": "https://github.com/aadridi/Binary_Search_Tree_TOP#readme",
+	"devDependencies": {
+		"html-webpack-plugin": "^5.6.5",
+		"webpack": "^5.103.0",
+		"webpack-cli": "^6.0.1",
+		"webpack-dev-server": "^5.2.2"
+	}
+}
