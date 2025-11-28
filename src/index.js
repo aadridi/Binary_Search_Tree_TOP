@@ -10,5 +10,4 @@ prettyPrint(tree.root);
 tree.insert(10);
 prettyPrint(tree.root);
 
-tree.delete(7);
-prettyPrint(tree.root);
+console.log(tree.postOrderForEach());

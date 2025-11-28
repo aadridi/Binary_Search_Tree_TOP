@@ -103,14 +103,83 @@ export class Tree {
 			return this.find(value, node.right);
 		}
 	}
+	levelOrder(callback) {
+		let queue = [];
+		let result = [];
+		let node = this.root;
 
-	levelOrder(callback) {}
-	preOrder(callback) {}
-	inOrder(callback) {}
-	postOrder(callback) {}
+		if (!node) return result;
+
+		queue.push(node);
+
+		while (queue.length > 0) {
+			let current = queue.shift();
+
+			if (callback) {
+				result.push(callback(current));
+			} else {
+				result.push(current.data);
+			}
+
+			if (current.left) queue.push(current.left);
+			if (current.right) queue.push(current.right);
+		}
+
+		return result;
+	}
+
+	preOrderForEach(callback, node = this.root, result = []) {
+		if (node === null) return;
+
+		if (callback) {
+			callback(node);
+		} else {
+			result.push(node.data);
+		}
+
+		this.preOrderForEach(callback, node.left, result);
+		this.preOrderForEach(callback, node.right, result);
+
+		if (!callback) return result;
+	}
+
+	inOrderForEach(callback, node = this.root, result = []) {
+		if (node === null) return;
+
+		this.inOrderForEach(callback, node.left, result);
+
+		if (callback) {
+			callback(node);
+		} else {
+			result.push(node.data);
+		}
+
+		this.inOrderForEach(callback, node.right, result);
+
+		if (!callback) return result;
+	}
+
+	postOrderForEach(callback, node = this.root, result = []) {
+		if (node === null) return;
+
+		this.postOrderForEach(callback, node.left, result);
+		this.postOrderForEach(callback, node.right, result);
+
+		if (callback) {
+			callback(node);
+		} else {
+			result.push(node.data);
+		}
+
+		if (!callback) return result;
+	}
+
 	height(node) {}
+
 	depth(node) {}
+
 	isBalanced() {}
+
 	rebalance() {}
 }
 
