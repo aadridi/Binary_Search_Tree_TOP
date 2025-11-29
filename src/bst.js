@@ -11,9 +11,6 @@ export class Tree {
 		this.root = null;
 	}
 
-	// -------------------------
-	// BUILD TREE
-	// -------------------------
 	buildTree(array) {
 		const uniqueSorted = [...new Set(array)].sort((a, b) => a - b);
 
@@ -33,9 +30,6 @@ export class Tree {
 		return this.root;
 	}
 
-	// -------------------------
-	// INSERT
-	// -------------------------
 	insert(value) {
 		this.root = this._insertRec(this.root, value);
 	}
@@ -52,9 +46,6 @@ export class Tree {
 		return root;
 	}
 
-	// -------------------------
-	// DELETE
-	// -------------------------
 	delete(value) {
 		this.root = this.deleteItem(this.root, value);
 	}
@@ -89,9 +80,6 @@ export class Tree {
 		return root;
 	}
 
-	// -------------------------
-	// REMAINING METHODS (empty)
-	// -------------------------
 	find(value, node = this.root) {
 		if (node === null) return null;
 
@@ -103,6 +91,7 @@ export class Tree {
 			return this.find(value, node.right);
 		}
 	}
+
 	levelOrder(callback) {
 		let queue = [];
 		let result = [];
@@ -174,18 +163,46 @@ export class Tree {
 		if (!callback) return result;
 	}
 
-	height(node) {}
+	heightValue(value) {
+		const node = this.find(value);
+		if (!node) return null;
+		return this.height(node);
+	}
 
-	depth(node) {}
+	height(node) {
+		if (node === null) return -1;
+		return 1 + Math.max(this.height(node.left), this.height(node.right));
+	}
 
-	isBalanced() {}
+	depth(value, node = this.root, currentDepth = 0) {
+		if (node === null) return null;
+		if (value === node.data) return currentDepth;
 
-	rebalance() {}
+		if (value < node.data) {
+			return this.depth(value, node.left, currentDepth + 1);
+		} else {
+			return this.depth(value, node.right, currentDepth + 1);
+		}
+	}
+
+	isBalanced(node = this.root) {
+		if (node === null) return true;
+
+		const leftHeight = this.height(node.left);
+		const rightHeight = this.height(node.right);
+
+		if (Math.abs(leftHeight - rightHeight) > 1) return false;
+
+		return this.isBalanced(node.left) && this.isBalanced(node.right);
+	}
+
+	rebalance() {
+		const sortedValues = this.inOrderForEach(null);
+		this.root = this.buildTree(sortedValues);
+		return this.root;
+	}
 }
 
-// -------------------------
-// PRETTY PRINT
-// -------------------------
 export function prettyPrint(node, prefix = '', isLeft = true) {
 	if (node === null) return;
 
